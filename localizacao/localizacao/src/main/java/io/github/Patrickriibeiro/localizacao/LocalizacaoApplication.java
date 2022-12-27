@@ -23,8 +23,10 @@ public class LocalizacaoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		listarCidades();
-		listarCidadesPorNome();
+		//listarCidades();
+		//listarCidadesPorNome();
+		//listarCidadesMenorProQuantidadeDeHabitantes();
+		listarCidadesMaiorProQuantidadeDeHabitantes();
 	}
 
 	@Transactional
@@ -44,6 +46,15 @@ public class LocalizacaoApplication implements CommandLineRunner {
 	void listarCidadesPorHabitantes() {
 		cidadeRepository.findByHabitantes(1000000L).forEach(System.out::println);
 	}
+	
+	void listarCidadesMenorProQuantidadeDeHabitantes() {
+		cidadeRepository.findByHabitantesLessThan(6000000L).forEach(System.out::println);;
+	}
+	
+	void listarCidadesMaiorProQuantidadeDeHabitantes() {
+		cidadeRepository.findByHabitantesGreaterThan(6000000L).forEach(System.out::println);;
+	}
+	
 	
 	
 
