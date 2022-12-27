@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.transaction.annotation.Transactional;
 
 import io.github.Patrickriibeiro.localizacao.domain.entity.Cidade;
 import io.github.Patrickriibeiro.localizacao.domain.repository.CidadeRepository;
-import jakarta.transaction.Transactional;
 
 @ComponentScan(basePackages =  "io.github.Patrickriibeiro.localizacao")
 @SpringBootApplication
@@ -26,6 +24,7 @@ public class LocalizacaoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		listarCidades();
+		listarCidadesPorNome();
 	}
 
 	@Transactional
@@ -37,5 +36,15 @@ public class LocalizacaoApplication implements CommandLineRunner {
 	void listarCidades() {
 		cidadeRepository.findAll().forEach(System.out::println);
 	}
+	
+	void listarCidadesPorNome() {
+		cidadeRepository.findByNomeContaining("Rio").forEach(System.out::println);
+	}
+	
+	void listarCidadesPorHabitantes() {
+		cidadeRepository.findByHabitantes(1000000L).forEach(System.out::println);
+	}
+	
+	
 
 }
