@@ -5,17 +5,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.transaction.annotation.Transactional;
 
-import io.github.Patrickriibeiro.localizacao.domain.entity.Cidade;
-import io.github.Patrickriibeiro.localizacao.domain.repository.CidadeRepository;
+import io.github.Patrickriibeiro.localizacao.service.CidadeService;
 
 @ComponentScan(basePackages =  "io.github.Patrickriibeiro.localizacao")
 @SpringBootApplication
 public class LocalizacaoApplication implements CommandLineRunner {
 
 	@Autowired
-	private CidadeRepository cidadeRepository;
+	private CidadeService service;
 
 	public static void main(String[] args) {
 		SpringApplication.run(LocalizacaoApplication.class, args);
@@ -23,39 +21,13 @@ public class LocalizacaoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		//listarCidades();
-		//listarCidadesPorNome();
-		//listarCidadesMenorProQuantidadeDeHabitantes();
-		listarCidadesMaiorProQuantidadeDeHabitantes();
+		//service.listarCidades();
+		//service.listarCidadesPorNome();
+		//service.listarCidadesMenorProQuantidadeDeHabitantes();
+		//service.listarCidadesMaiorProQuantidadeDeHabitantes(); 
+	    service.listarCidadesPorNomeSorted();
 	}
 
-	@Transactional
-	private void salvarCidade() {
-		var cidade = new Cidade(1L, "São Paulo", 12396372L);
-		cidadeRepository.save(cidade);
-	}
-
-	void listarCidades() {
-		cidadeRepository.findAll().forEach(System.out::println);
-	}
-	
-	void listarCidadesPorNome() {
-		cidadeRepository.findByNomeContaining("Rio").forEach(System.out::println);
-	}
-	
-	void listarCidadesPorHabitantes() {
-		cidadeRepository.findByHabitantes(1000000L).forEach(System.out::println);
-	}
-	
-	void listarCidadesMenorProQuantidadeDeHabitantes() {
-		cidadeRepository.findByHabitantesLessThan(6000000L).forEach(System.out::println);;
-	}
-	
-	void listarCidadesMaiorProQuantidadeDeHabitantes() {
-		cidadeRepository.findByHabitantesGreaterThan(6000000L).forEach(System.out::println);;
-	}
-	
-	
 	
 
 }
