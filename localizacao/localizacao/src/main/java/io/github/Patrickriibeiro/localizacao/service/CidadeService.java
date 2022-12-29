@@ -1,5 +1,10 @@
 package io.github.Patrickriibeiro.localizacao.service;
 
+import java.util.List;
+import java.util.PrimitiveIterator.OfDouble;
+
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -52,5 +57,14 @@ public class CidadeService {
 	
 	public void listarCidadesMaiorProQuantidadeDeHabitantes() {
 		repository.findByHabitantesGreaterThan(6000000L).forEach(System.out::println);;
+	}
+	
+	public List<Cidade> filtroDinamico(Cidade cidade){
+		ExampleMatcher matcher = ExampleMatcher.matching()
+				.withIgnoreCase("nome")
+				.withStringMatcher(ExampleMatcher.StringMatcher.STARTING);
+		
+		Example<Cidade> example = Example.of(cidade,matcher);
+		return repository.findAll(example);
 	}
 }
