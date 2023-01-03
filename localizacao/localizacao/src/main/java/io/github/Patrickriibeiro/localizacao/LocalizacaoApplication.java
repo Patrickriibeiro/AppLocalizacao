@@ -1,9 +1,6 @@
 package io.github.Patrickriibeiro.localizacao;
 
 import java.time.LocalDate;
-import java.util.Date;
-
-import javax.print.attribute.standard.DateTimeAtCompleted;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -32,10 +29,7 @@ public class LocalizacaoApplication implements CommandLineRunner {
 		//service.listarCidadesMaiorProQuantidadeDeHabitantes(); 
 	    //service.listarCidadesPorNomePage();
 		//service.listarCidadesPorNomePageMap();
+		service.listarCidadesByNomeSpec();
 		System.out.println("Data : " + LocalDate.now());
-		
 	}
-
-	
-
 }

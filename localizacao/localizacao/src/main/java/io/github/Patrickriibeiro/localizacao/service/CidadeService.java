@@ -1,12 +1,13 @@
 package io.github.Patrickriibeiro.localizacao.service;
 
-import java.util.HashMap;
+import static io.github.Patrickriibeiro.localizacao.domain.repository.specs.CidadeSpecs.habitantesGreaterThan;
+import static io.github.Patrickriibeiro.localizacao.domain.repository.specs.CidadeSpecs.nomeEqual;
+import static io.github.Patrickriibeiro.localizacao.domain.repository.specs.CidadeSpecs.propertyEqual;
+
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -73,5 +74,14 @@ public class CidadeService {
 
 		Example<Cidade> example = Example.of(cidade, matcher);
 		return repository.findAll(example);
+	}
+
+	public void listarCidadesByNomeSpec() {
+		repository.findAll(nomeEqual("São Paulo").and(habitantesGreaterThan(1000))).forEach(System.out::println);
+	}
+
+	public void listarCidadesByNomeSpecGeneric() {
+		repository.findAll(propertyEqual("nome", "São Paulo").and(propertyEqual("habitantes", 12396372)))
+				.forEach(System.out::println);
 	}
 }
