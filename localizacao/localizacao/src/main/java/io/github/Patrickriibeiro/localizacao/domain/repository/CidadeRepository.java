@@ -13,9 +13,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import io.github.Patrickriibeiro.localizacao.domain.entity.Cidade;
+import io.github.Patrickriibeiro.localizacao.domain.repository.projections.CidadeProjection;
 
 @Repository
 public interface CidadeRepository extends JpaRepository<Cidade,Long>, JpaSpecificationExecutor<Cidade> {
+	
+	@Query(value = "select c.id_cidade as id, c.nome from tb_cidade as c where c.nome =:nome", nativeQuery = true)
+	List<CidadeProjection> findByNomeSqlNativo(@Param("nome") String nome);
 	
 	List<Cidade> findByNome(String nome);
 	
